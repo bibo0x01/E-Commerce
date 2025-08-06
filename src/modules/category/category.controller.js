@@ -2,9 +2,12 @@ import categoryRouter from "./cotegory.routes.js";
 import Category from "./category.model.js";
 import AppError from "../../utils/AppError.js";    
 import asyncHandler from "../../utils/asyncHandler.js";
+import slugify from "slugify"
+
 
 
 const createCategory = asyncHandler(async (req, res, next) => {
+    req.body.slug = slugify(req.body.name ,  { lower: true, strict: true });
     const newCategory = new Category(req.body);
      await newCategory.save();
     res.status(201).json({
@@ -33,6 +36,7 @@ const getCategoryById = asyncHandler(async (req, res, next) => {
     });
 })
 const updateCategory = asyncHandler(async (req, res, next) => {
+    req.body.slug = slugify(req.body.name, { lower: true, strict: true });
     const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true
@@ -48,7 +52,7 @@ const updateCategory = asyncHandler(async (req, res, next) => {
 
 })
 const deleteCategory = asyncHandler(async (req, res, next) => { 
-    const category = await Category.findByIdAndDelete(req.params.id);
+    const category = await Category.findByIdAndDelete(req.params.id );
     if (!category) {
         return next(new AppError("Category not found", 404));
     }
