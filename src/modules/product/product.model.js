@@ -27,17 +27,17 @@ const productSchema = new mongoose.Schema({
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
-        required: true
+        // required: true
     },
     brand: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Brand',
-        required: true
+        // required: true
     },
     subCategory: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'SubCategory',
-        required: true
+        // required: true
     },
     img: {
         type: String,
@@ -71,11 +71,11 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 0
     } , 
-        createdBy: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-            required: true
-        }
+        // createdBy: {
+        //     type: mongoose.Schema.Types.ObjectId,
+        //     ref: 'User',
+        //     required: true
+        // }
 
 } , {timestamps  : true, versionKey : false })
 

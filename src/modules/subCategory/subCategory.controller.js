@@ -1,4 +1,5 @@
 import SubCategory from "./subCategory.model.js";
+import Category from "../category/category.model.js";
 import AppError from "../../utils/AppError.js";
 import asyncHandler from "../../utils/asyncHandler.js";
 import slugify from "slugify";
@@ -7,6 +8,9 @@ import slugify from "slugify";
 
 const createSubCategory = asyncHandler(async (req, res, next) => {
     req.body.slug = slugify(req.body.name, { lower: true, strict: true });
+    const categoryExists = await Category.findById(req.body.category);
+    if (!categoryExists) return next(new AppError("Category not found", 404));
+
     const newSubCategory = new SubCategory(req.body);
     await newSubCategory.save();
     res.status(201).json({
