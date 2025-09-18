@@ -9,6 +9,6 @@ const bootstrap = (app) => {
         app.use('/api/v1/categories', categoryRouter);
         app.use('/api/v1/products', productRouter)
         app.use('/api/v1/brands', brandRouter)
+} 
 
- }   
 export default bootstrap
